@@ -1,3 +1,4 @@
+var moment = require('moment');
 var expect = require('chai').expect;
 
 var ParameterHelper = require('../../lib/util/ParameterHelper');
@@ -6,25 +7,47 @@ describe('util', function() {
     describe('ParameterHelper', function() {
         describe('validDate', function() {
             it('should return a date', function() {
-                expect(ParameterHelper.validDate('01.01.2010').isValid()).to.be.true;
+                expect(ParameterHelper.validDate('2010-01-01').isValid()).to.be.true;
+            });
+
+            it('should return a date', function() {
+                expect(ParameterHelper.validDate(moment('2010-01-01')).isValid()).to.be.true;
             });
 
             it('should throw on undefined date', function() {
                 expect(function() {
                     ParameterHelper.validDate();
-                }).to.throw();
+                }).to.throw(/not allowed/);
             });
 
             it('should throw on null date', function() {
                 expect(function() {
                     ParameterHelper.validDate(null);
-                }).to.throw();
+                }).to.throw(/not allowed/);
             });
 
             it('should throw on invalid date', function() {
                 expect(function() {
                     ParameterHelper.validDate('foobar');
-                }).to.throw();
+                }).to.throw(/invalid date: foobar/);
+            });
+        });
+
+        describe('geDate', function() {
+            it('should throw', function() {
+                expect(function() {
+                    ParameterHelper.geDate();
+                }).to.throw(/not allowed/);
+            });
+
+            it('should throw', function() {
+                expect(function() {
+                    ParameterHelper.geDate('2013-01-01', '2014-01-01');
+                }).to.throw(/should be greater/);
+            });
+
+            it('should return', function() {
+                expect(ParameterHelper.geDate('2014-01-01', '2013-01-01').format('YYYY-MM-DD')).to.deep.equal('2014-01-01');
             });
         });
 
@@ -35,8 +58,8 @@ describe('util', function() {
 
             it('should throw', function() {
                 expect(function() {
-                    ParameterHelper.notNull(null).to.throw();
-                });
+                    ParameterHelper.notNull(null);
+                }).to.throw(/value not allowed/);
             });
         });
 
@@ -48,7 +71,7 @@ describe('util', function() {
             it('should throw (undefined test)', function() {
                 expect(function() {
                     ParameterHelper.notUndefined();
-                }).to.throw();
+                }).to.throw(/not allowed/);
             });
         });
 
@@ -56,13 +79,13 @@ describe('util', function() {
             it('should throw (isSet)', function() {
                 expect(function() {
                     ParameterHelper.isSet();
-                }).to.throw();
+                }).to.throw(/not allowed/);
             });
 
             it('should throw (isSet)', function() {
                 expect(function() {
                     ParameterHelper.isSet(null);
-                }).to.throw();
+                }).to.throw(/not allowed/);
             });
 
             it('should return anything (undefined test)', function() {
@@ -74,7 +97,7 @@ describe('util', function() {
             it('should throw (isArray)', function() {
                 expect(function() {
                     ParameterHelper.isArray('foo');
-                }).to.throw();
+                }).to.throw(/not an array: foo/);
             });
 
             it('should return anything (isArray)', function() {
@@ -86,13 +109,13 @@ describe('util', function() {
             it('should throw (isNonEmptyArray)', function() {
                 expect(function() {
                     ParameterHelper.isNonEmptyArray('foo');
-                }).to.throw();
+                }).to.throw(/not an array: foo/);
             });
 
             it('should throw (isNonEmptyArray)', function() {
                 expect(function() {
                     ParameterHelper.isNonEmptyArray([]);
-                }).to.throw();
+                }).to.throw(/empty array not allowed/);
             });
 
             it('should return anything (isNonEmptyAray)', function() {
@@ -104,7 +127,7 @@ describe('util', function() {
             it('should throw (isInteger)', function() {
                 expect(function() {
                     ParameterHelper.isInteger('foo');
-                }).to.throw();
+                }).to.throw(/not a number: foo/);
             });
 
             it('should return anything (isInteer)', function() {
@@ -116,7 +139,7 @@ describe('util', function() {
             it('should throw (ge)', function() {
                 expect(function() {
                     ParameterHelper.ge(1, 1000);
-                }).to.throw();
+                }).to.throw(/should be greater\/equals 1000/);
             });
 
             it('should return anything (ge)', function() {

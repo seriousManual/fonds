@@ -6,14 +6,14 @@ describe('YearlyPeriodicPayment', function() {
     it('should throw', function() {
         expect(function() {
             new YearlyPeriodicPayment();
-        }).to.throw();
+        }).to.throw(/not a number/);
     });
 
     it('should hold the values (/w end)', function() {
         var a = new YearlyPeriodicPayment({
             value: 100,
-            start: '01.01.2014',
-            end: '01.02.2014',
+            start: '2014-01-01',
+            end: '2014-02-01',
             dates: [1, 2, 3]
         });
 
