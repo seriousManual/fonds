@@ -17,7 +17,7 @@ describe('Payment', function() {
         var foo = new Payment({value: 100});
 
         expect(function() {
-            foo.validatePayment();
+            foo.validatePaymentDate();
         }).to.throw(/not implemented/);
     });
 });
