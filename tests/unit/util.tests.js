@@ -87,5 +87,29 @@ describe('util', function() {
         it('should return anything (isNonEmptyAray)', function() {
             expect(ParameterHelper.isNonEmptyArray([1])).to.deep.equal([1]);
         });
+
+        it('should throw (isInteger)', function() {
+            expect(function() {
+                ParameterHelper.isInteger('foo');
+            }).to.throw();
+        });
+
+        it('should return anything (isInteer)', function() {
+            expect(ParameterHelper.isInteger(1)).to.equal(1);
+        });
+
+        it('should throw (ge)', function() {
+            expect(function() {
+                ParameterHelper.ge(1, 1000);
+            }).to.throw();
+        });
+
+        it('should return anything (ge)', function() {
+            expect(ParameterHelper.ge(1, 1)).to.equal(1)
+        });
+
+        it('should return anything (ge)', function() {
+            expect(ParameterHelper.ge(1000, 1)).to.equal(1000);
+        });
     });
 });
