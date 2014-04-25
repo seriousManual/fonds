@@ -1,18 +1,25 @@
 module.exports = {
+    start: '01.01.2014',
+    end: null,
     payments: [
         {
-            type: 'periodic',
+            type: 'monthly',
             start: '01.01.2014',
-            interval: 'month',
             dates:[1, 15],
             value: 100
         },
         {
-            type: 'periodic',
+            type: 'monthly',
             start: '01.02.2014',
             end: '01.03.2014',
             interval: 'month',
             dates: [1],
+            value: 100
+        },
+        {
+            type: 'yearly',
+            start: '01.03.2014',
+            dates: ['01.01', '01.06', '01.09'],
             value: 100
         },
         {
