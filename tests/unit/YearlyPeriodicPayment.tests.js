@@ -48,13 +48,13 @@ describe('YearlyPeriodicPayment', function() {
             value: 100,
             start: '2010-01-01',
             end: '2012-12-31',
-            dates: [[1,6]]
+            dates: [[1,6], [3, 11]]
         });
 
         expect(a.value()).to.equal(100);
         expect(a.start().isValid()).to.be.true;
         expect(a.end().isValid()).to.be.true;
-        expect(a.dates()).to.deep.equal(['1_6']);
+        expect(a.dates()).to.deep.equal(['1_6', '3_11']);
 
         expect(a.validatePaymentDate(moment('2010-01-01'))).to.be.false;
         expect(a.validatePaymentDate(moment('2011-03-19'))).to.be.false;
@@ -63,7 +63,11 @@ describe('YearlyPeriodicPayment', function() {
         expect(a.validatePaymentDate(moment('2010-06-01'))).to.be.true;
         expect(a.validatePaymentDate(moment('2011-06-01'))).to.be.true;
         expect(a.validatePaymentDate(moment('2012-06-01'))).to.be.true;
+        expect(a.validatePaymentDate(moment('2010-11-03'))).to.be.true;
+        expect(a.validatePaymentDate(moment('2011-11-03'))).to.be.true;
+        expect(a.validatePaymentDate(moment('2012-11-03'))).to.be.true;
 
         expect(a.validatePaymentDate(moment('2014-06-01'))).to.be.false;
+        expect(a.validatePaymentDate(moment('2014-11-03'))).to.be.false;
     });
 });
