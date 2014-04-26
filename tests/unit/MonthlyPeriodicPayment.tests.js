@@ -1,6 +1,7 @@
 var expect = require('chai').expect;
 var moment = require('moment');
 
+var testUtil = require('../util');
 var MonthlyPeriodicPayment = require('../../lib/MonthlyPeriodicPayment');
 
 describe('MonthlyPeriodicPayment', function() {
@@ -19,8 +20,8 @@ describe('MonthlyPeriodicPayment', function() {
         });
 
         expect(a.value()).to.equal(100);
-        expect(a.start().isValid()).to.be.true;
-        expect(a.end().isValid()).to.be.true;
+        testUtil.dateCheck(a.start(), '2014-01-01');
+        testUtil.dateCheck(a.end(), '2014-02-02');
         expect(a.dates()).to.deep.equal([1,2,3]);
     });
 
@@ -33,7 +34,7 @@ describe('MonthlyPeriodicPayment', function() {
         });
 
         expect(a.validatePaymentDate(moment('2013-12-01'))).to.be.false;
-        
+
         expect(a.validatePaymentDate(moment('2014-01-01'))).to.be.true;
         expect(a.validatePaymentDate(moment('2014-01-02'))).to.be.true;
         expect(a.validatePaymentDate(moment('2014-01-03'))).to.be.true;
