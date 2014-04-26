@@ -1,6 +1,6 @@
 var expect = require('chai').expect;
 
-var Payment = require('../../lib/Payment');
+var Payment = require('../../lib/payments/Payment');
 
 describe('Payment', function() {
     it('should throw', function() {

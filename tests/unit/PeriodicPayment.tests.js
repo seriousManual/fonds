@@ -2,7 +2,7 @@ var expect = require('chai').expect;
 var moment = require('moment');
 
 var testUtil = require('../util');
-var PeriodicPayment = require('../../lib/PeriodicPayment');
+var PeriodicPayment = require('../../lib/payments/PeriodicPayment');
 
 describe('PeriodicPayment', function() {
     it('should throw', function() {
@@ -48,6 +48,7 @@ describe('PeriodicPayment', function() {
         testUtil.dateCheck(a.start(), '2014-01-01');
         expect(a.end()).to.be.null;
 
+        expect(a.validateDuration(moment('2012-01-01'))).to.be.false;
         expect(a.validateDuration(moment('2014-01-01'))).to.be.true;
         expect(a.validateDuration(moment('2014-01-10'))).to.be.true;
         expect(a.validateDuration(moment('2015-01-01'))).to.be.true;

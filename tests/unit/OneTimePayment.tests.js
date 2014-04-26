@@ -1,7 +1,7 @@
 var expect = require('chai').expect;
 var moment = require('moment');
 
-var OneTimePayment = require('../../lib/OneTimePayment');
+var OneTimePayment = require('../../lib/payments/OneTimePayment');
 
 describe('OneTimePayment', function() {
     it('should throw', function() {

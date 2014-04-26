@@ -1,7 +1,7 @@
 var expect = require('chai').expect;
 var moment = require('moment');
 
-var YearlyPeriodicPayment = require('../../lib/YearlyPeriodicPayment');
+var YearlyPeriodicPayment = require('../../lib/payments/YearlyPeriodicPayment');
 
 describe('YearlyPeriodicPayment', function() {
     it('should throw', function() {
@@ -48,7 +48,7 @@ describe('YearlyPeriodicPayment', function() {
             value: 100,
             start: '2010-01-01',
             end: '2012-12-31',
-            dates: [[1,6], [3, 11]]
+            dates: [[1, 6], [3, 11]]
         });
 
         expect(a.value()).to.equal(100);

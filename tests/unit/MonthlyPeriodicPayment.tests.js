@@ -2,7 +2,7 @@ var expect = require('chai').expect;
 var moment = require('moment');
 
 var testUtil = require('../util');
-var MonthlyPeriodicPayment = require('../../lib/MonthlyPeriodicPayment');
+var MonthlyPeriodicPayment = require('../../lib/payments/MonthlyPeriodicPayment');
 
 describe('MonthlyPeriodicPayment', function() {
     it('should throw', function() {
