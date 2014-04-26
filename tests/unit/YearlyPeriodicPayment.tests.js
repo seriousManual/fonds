@@ -1,4 +1,5 @@
 var expect = require('chai').expect;
+var moment = require('moment');
 
 var YearlyPeriodicPayment = require('../../lib/YearlyPeriodicPayment');
 
@@ -45,14 +46,24 @@ describe('YearlyPeriodicPayment', function() {
     it('should hold the values (/w end)', function() {
         var a = new YearlyPeriodicPayment({
             value: 100,
-            start: '2014-01-01',
-            end: '2014-02-01',
-            dates: [[1,1]]
+            start: '2010-01-01',
+            end: '2012-12-31',
+            dates: [[1,6]]
         });
 
         expect(a.value()).to.equal(100);
         expect(a.start().isValid()).to.be.true;
         expect(a.end().isValid()).to.be.true;
-        expect(a.dates()).to.deep.equal([[1,1]]);
+        expect(a.dates()).to.deep.equal(['1_6']);
+
+        expect(a.validatePaymentDate(moment('2010-01-01'))).to.be.false;
+        expect(a.validatePaymentDate(moment('2011-03-19'))).to.be.false;
+        expect(a.validatePaymentDate(moment('2012-11-25'))).to.be.false;
+
+        expect(a.validatePaymentDate(moment('2010-06-01'))).to.be.true;
+        expect(a.validatePaymentDate(moment('2011-06-01'))).to.be.true;
+        expect(a.validatePaymentDate(moment('2012-06-01'))).to.be.true;
+
+        expect(a.validatePaymentDate(moment('2014-06-01'))).to.be.false;
     });
 });
