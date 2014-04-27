@@ -13,6 +13,8 @@
     "chai": "~1.9.1"
   },
   "dependencies": {
-    "moment": "~2.6.0"
+    "moment": "~2.6.0",
+    "optimist": "~0.6.0",
+    "cli-table": "~0.3.0"
   }
 }
