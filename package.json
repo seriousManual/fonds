@@ -1,12 +1,12 @@
 {
   "name": "fonds",
   "version": "0.1.0",
-  "description": "",
+  "description": "takes a savings plan an calculates the total investment",
   "main": "index.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha tests/unit"
   },
-  "author": "",
+  "author": "Manuel Ernst <zaphod84@gmx.de>",
   "license": "MIT",
   "devDependencies": {
     "mocha": "~1.18.2",
