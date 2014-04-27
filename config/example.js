@@ -7,8 +7,8 @@ module.exports = {
             type: 'monthly',
             start: '2014-01-01',
             dates:[1, 15],
-            value: 100,
-            fee: 0
+            value: 50,
+            fee: 0.01
         },
         {
             comment: 'monthly, with end',
@@ -18,22 +18,22 @@ module.exports = {
             interval: 'month',
             dates: [1],
             value: 100,
-            fee: 0
+            fee: 0.05
         },
         {
             comment: 'yearly',
             type: 'yearly',
             start: '2014-03-01',
             dates: [[1,1], [1,6], [1,9]],
-            value: 100,
-            fee: 0
+            value: 300,
+            fee: 0.05
         },
         {
             comment: 'oneTime',
             type: 'oneTime',
             date: '2014-03-01',
-            value: 500,
-            fee: 0
+            value: 1000,
+            fee: 0.05
         }
     ]
 };
