@@ -37,7 +37,8 @@ describe('Plan', function() {
                     type: 'monthly',
                     start: '2014-01-01',
                     dates:[1, 15],
-                    value: 100
+                    value: 100,
+                    fee: 0
                 }]
             });
         }).to.throw(/2010-01-01 should be greater\/equals 2014-01-01/);
@@ -61,18 +62,21 @@ describe('Plan', function() {
                     type: 'monthly',
                     start: '2014-01-01',
                     dates:[1, 15],
-                    value: 10
+                    value: 10,
+                    fee: 0
                 },
                 {
                     type: 'yearly',
                     start: '2014-01-01',
                     dates:[[1,1]],
-                    value: 100
+                    value: 100,
+                    fee: 0
                 },
                 {
                     type: 'oneTime',
                     date: '2014-01-01',
-                    value: 1000
+                    value: 1000,
+                    fee: 0
                 }
             ]
         });

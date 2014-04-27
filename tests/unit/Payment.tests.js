@@ -10,11 +10,22 @@ describe('Payment', function() {
     });
 
     it('should hold the value', function() {
-        expect(new Payment({value: 100}).value()).to.equal(100);
+        var a = new Payment({
+            value: 100,
+            comment: 'f00',
+            fee: 0
+        });
+
+        expect(a.value()).to.equal(100);
+        expect(a.fee()).to.equal(0);
+        expect(a.comment()).to.equal('f00');
     });
 
     it('should throw', function() {
-        var foo = new Payment({value: 100});
+        var foo = new Payment({
+            value: 100,
+            fee: 0
+        });
 
         expect(function() {
             foo.validatePaymentDate();

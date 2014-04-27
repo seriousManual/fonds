@@ -16,7 +16,8 @@ describe('MonthlyPeriodicPayment', function() {
             value: 100,
             start: '2014-01-01',
             end: '2014-02-02',
-            dates: [1, 2, 3]
+            dates: [1, 2, 3],
+            fee: 0
         });
 
         expect(a.value()).to.equal(100);
@@ -30,7 +31,8 @@ describe('MonthlyPeriodicPayment', function() {
             value: 100,
             start: '2014-01-01',
             end: '2014-05-31',
-            dates: [1, 2, 3]
+            dates: [1, 2, 3],
+            fee: 0
         });
 
         expect(a.validatePaymentDate(moment('2013-12-01'))).to.be.false;

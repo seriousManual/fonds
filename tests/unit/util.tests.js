@@ -135,6 +135,22 @@ describe('util', function() {
             });
         });
 
+        describe('isFloat', function(){
+            it('should throw (isFLoat)', function() {
+                expect(function() {
+                    ParameterHelper.isFloat('foo');
+                }).to.throw(/not a number: foo/);
+            });
+
+            it('should return anything (isFloat)', function() {
+                expect(ParameterHelper.isFloat(0.1)).to.equal(0.1);
+            });
+
+            it('should return anything (isFloat)', function() {
+                expect(ParameterHelper.isFloat(1)).to.equal(1);
+            });
+        });
+
         describe('ge', function() {
             it('should throw (ge)', function() {
                 expect(function() {

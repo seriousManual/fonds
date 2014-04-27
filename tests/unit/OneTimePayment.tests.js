@@ -13,7 +13,8 @@ describe('OneTimePayment', function() {
     it('should hold the values', function() {
         var a = new OneTimePayment({
             value: 100,
-            date: '2014-01-01'
+            date: '2014-01-01',
+            fee: 0
         });
 
         expect(a.value()).to.equal(100);
@@ -23,7 +24,8 @@ describe('OneTimePayment', function() {
     it('should validate payments', function() {
         var a = new OneTimePayment({
             value: 100,
-            date: '2014-01-01'
+            date: '2014-01-01',
+            fee: 0
         });
 
         expect(a.validatePaymentDate(moment('2014-01-01'))).to.be.true;

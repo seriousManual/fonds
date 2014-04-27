@@ -16,7 +16,8 @@ describe('PeriodicPayment', function() {
             new PeriodicPayment({
                 value: 100,
                 start: '01-01-2013',
-                end: '01-01-2011'
+                end: '01-01-2011',
+                fee: 0
             });
         }).to.throw(/should be greater/);
     });
@@ -25,7 +26,8 @@ describe('PeriodicPayment', function() {
         var a = new PeriodicPayment({
             value: 100,
             start: '2014-01-01',
-            end: '2014-02-01'
+            end: '2014-02-01',
+            fee: 0
         });
 
         expect(a.value()).to.equal(100);
@@ -41,7 +43,8 @@ describe('PeriodicPayment', function() {
         var a = new PeriodicPayment({
             value: 100,
             start: '2014-01-01',
-            end: null
+            end: null,
+            fee: 0
         });
 
         expect(a.value()).to.equal(100);

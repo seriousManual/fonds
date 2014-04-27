@@ -1,3 +1,5 @@
 node_modules
 .idea
 foo.js
+config/user.*
+run.js
