@@ -14,6 +14,23 @@ if (!configFile) {
     process.exit(1);
 }
 
+var styles = {
+    blank: {
+        chars: {
+            'top': '-' , 'top-mid': '-' , 'top-left': '+' , 'top-right': '+',
+            'bottom': '-' , 'bottom-mid': '+' , 'bottom-left': '+' , 'bottom-right': '+',
+            'left': '|' , 'left-mid': '+' , 'mid': '-' , 'mid-mid': '+',
+            'right': '|' , 'right-mid': '+' , 'middle': '|'
+        },
+        style: {
+            head: [],
+            border: []
+        }
+    }
+};
+
+var style = args.style && styles[args.style];
+
 var plan, data;
 try {
     if (configFile.match(/\.json/)) {
@@ -31,9 +48,18 @@ try {
 
 new Summary(plan)
 .createSummary(function(error, summary) {
-    var table = new Table({
-        head: ['', 'comment', 'value (€)', 'fee (€)']
-    });
+    var options = {
+        head: ['', 'comment', 'value (EUR)', 'fee (EUR)']
+    };
+
+    if (style) {
+        options.chars = style.chars;
+        options.style = {};
+        options.style.head = style.style.head;
+        options.style.border = style.style.border;
+    }
+
+    var table = new Table(options);
 
     summary.payments.forEach(function(payment) {
         var row = {};
