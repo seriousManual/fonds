@@ -1,10 +1,11 @@
 var fs = require('fs');
+var path = require('path');
 
 var args = require('optimist').argv;
 var Table = require('cli-table');
 
-var Plan = require('./lib/Plan');
-var Summary = require('./lib/Summary');
+var Plan = require('../lib/Plan');
+var Summary = require('../lib/Summary');
 
 var configFile = args._[0];
 
@@ -19,7 +20,7 @@ try {
         data = fs.readFileSync(configFile).toString();
         data = JSON.parse(data);
     } else {
-        data = require(configFile);
+        data = require(path.join(process.cwd(), configFile));
     }
 
     plan = new Plan(data);
