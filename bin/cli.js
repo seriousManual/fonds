@@ -73,7 +73,8 @@ new Summary(plan)
     });
 
     table.push([]);
-    table.push({'sum': ['', summary.invested, summary.fee]})
+    table.push({'sum': ['', summary.invested, summary.fee]});
+    table.push({'invested': ['', summary.invested - summary.fee, '' ]});
 
     console.log(table.toString());
 });
