@@ -1,7 +1,7 @@
 var moment = require('moment');
 var expect = require('chai').expect;
 
-var ParameterHelper = require('../../lib/util/ParameterHelper');
+var ParameterHelper = require('../../lib/util/parameterHelper');
 
 describe('util', function () {
     describe('ParameterHelper', function () {
