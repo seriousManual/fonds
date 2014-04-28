@@ -9,47 +9,43 @@ var Summary = require('../lib/Summary');
 
 var configFile = args._[0];
 
-if (!configFile) {
-    console.log('missing config file');
+var plan;
+try {
+    if(!configFile) throw new Error('config file missing');
+
+    var data = loadData(configFile);
+
+    plan = new Plan(data);
+} catch(error) {
+    console.log('initialization: ' + error.message);
     process.exit(1);
 }
 
 var currentValue = args.currentValue || null;
 
-var styles = {
-    blank: {
-        chars: {
-            'top': '-' , 'top-mid': '-' , 'top-left': '+' , 'top-right': '+',
-            'bottom': '-' , 'bottom-mid': '+' , 'bottom-left': '+' , 'bottom-right': '+',
-            'left': '|' , 'left-mid': '+' , 'mid': '-' , 'mid-mid': '+',
-            'right': '|' , 'right-mid': '+' , 'middle': '|'
-        },
-        style: {
-            head: [],
-            border: []
-        }
+var blankStyle = {
+    chars: {
+        'top': '-' , 'top-mid': '-' , 'top-left': '+' , 'top-right': '+',
+        'bottom': '-' , 'bottom-mid': '+' , 'bottom-left': '+' , 'bottom-right': '+',
+        'left': '|' , 'left-mid': '+' , 'mid': '-' , 'mid-mid': '+',
+        'right': '|' , 'right-mid': '+' , 'middle': '|'
+    },
+    style: {
+        head: [],
+        border: []
     }
 };
 
-var style = args.style && styles[args.style];
-
-var plan, data;
-try {
-    if (configFile.match(/\.json/)) {
-        data = fs.readFileSync(configFile).toString();
-        data = JSON.parse(data);
-    } else {
-        data = require(path.join(process.cwd(), configFile));
-    }
-
-    plan = new Plan(data);
-} catch(error) {
-    console.log('plan definition error: ' + error.message);
-    process.exit(1);
-}
-
 new Summary(plan)
 .createSummary(function(error, summary) {
+    printDetailTable(summary, args.blank ? blankStyle : null);
+
+    if (currentValue) {
+        printSummary(summary, currentValue);
+    }
+});
+
+function printDetailTable(summary, style) {
     var options = {
         head: ['', 'comment', 'value (EUR)', 'fee (EUR)']
     };
@@ -78,34 +74,64 @@ new Summary(plan)
     table.push({'sums': ['', summary.invested, summary.fee]});
 
     console.log(table.toString());
+}
 
-    if (currentValue) {
-        var optionsSummary = {
-            chars: {
-                'top': '' , 'top-mid': '' , 'top-left': '' , 'top-right': '',
-                'bottom': '' , 'bottom-mid': '' , 'bottom-left': '' , 'bottom-right': '',
-                'left': '' , 'left-mid': '' , 'mid': '' , 'mid-mid': '',
-                'right': '' , 'right-mid': '' , 'middle': ''
-            },
-            style: {
-                head: [],
-                border: []
-            }
-        };
-        var table2 = new Table(optionsSummary);
+function printSummary(summary, currentValue) {
+    var optionsSummary = {
+        chars: {
+            'top': '' , 'top-mid': '' , 'top-left': '' , 'top-right': '',
+            'bottom': '' , 'bottom-mid': '' , 'bottom-left': '' , 'bottom-right': '',
+            'left': '' , 'left-mid': '' , 'mid': '' , 'mid-mid': '',
+            'right': '' , 'right-mid': '' , 'middle': ''
+        },
+        style: {
+            head: [],
+            border: []
+        }
+    };
 
-        table2.push(
-            { paid: summary.invested },
-            { 'total fee': summary.fee },
-            { '--------------': '------------'},
-            { 'invested': summary.invested - summary.fee },
-            { '': '' },
-            { 'current value:': currentValue },
-            { '% of paid': -1 * (1 - currentValue / summary.invested) },
-            { '% of invested': -1 * (1 - currentValue / (summary.invested - summary.fee)) }
+    var table2 = new Table(optionsSummary);
 
-        );
+    table2.push(
+        { paid: summary.invested },
+        { 'total fee': summary.fee },
+        { '--------------': '------------'},
+        { 'invested': summary.invested - summary.fee },
+        { '': '' },
+        { 'current value:': currentValue },
+        { '% of paid': beautify(percChange(currentValue, summary.invested)) + '%' },
+        { '% of invested': beautify(percChange(currentValue, summary.invested - summary.fee)) + '%'}
+    );
 
-        console.log(table2.toString());
+    console.log(table2.toString());
+}
+
+function loadData(inputPath) {
+    var configFilePath;
+    if(fs.existsSync(path.join(process.cwd(), inputPath))) {
+        configFilePath = path.join(process.cwd(), inputPath);
+    } else if (fs.existsSync(inputPath)) {
+        configFilePath = inputPath;
     }
-});
+
+    if (!configFilePath) {
+        throw new Error('config not found: ' + inputPath);
+    }
+
+    if (configFilePath.match(/\.json/)) {
+        data = fs.readFileSync(configFilePath).toString();
+        data = JSON.parse(data);
+    } else {
+        data = require(configFilePath);
+    }
+
+    return data;
+}
+
+function percChange(value, base) {
+    return (-1 * (1 - value / base)) * 100;
+}
+
+function beautify(value) {
+    return Math.round(value * 100) / 100;
+}

@@ -1,5 +1,5 @@
 module.exports = {
-    start: '01.01.2014',
+    start: '2014-01-01',
     end: null,
     payments: [
         {
