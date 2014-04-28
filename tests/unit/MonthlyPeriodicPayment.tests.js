@@ -4,14 +4,14 @@ var moment = require('moment');
 var testUtil = require('../util');
 var MonthlyPeriodicPayment = require('../../lib/payments/MonthlyPeriodicPayment');
 
-describe('MonthlyPeriodicPayment', function() {
-    it('should throw', function() {
-        expect(function() {
+describe('MonthlyPeriodicPayment', function () {
+    it('should throw', function () {
+        expect(function () {
             new MonthlyPeriodicPayment();
         }).to.throw(/not a number/);
     });
 
-    it('should hold the values (/w end)', function() {
+    it('should hold the values (/w end)', function () {
         var a = new MonthlyPeriodicPayment({
             value: 100,
             start: '2014-01-01',
@@ -23,10 +23,10 @@ describe('MonthlyPeriodicPayment', function() {
         expect(a.value()).to.equal(100);
         testUtil.dateCheck(a.start(), '2014-01-01');
         testUtil.dateCheck(a.end(), '2014-02-02');
-        expect(a.dates()).to.deep.equal([1,2,3]);
+        expect(a.dates()).to.deep.equal([1, 2, 3]);
     });
 
-    it('should validate paymentdate', function() {
+    it('should validate paymentdate', function () {
         var a = new MonthlyPeriodicPayment({
             value: 100,
             start: '2014-01-01',

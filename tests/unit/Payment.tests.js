@@ -2,14 +2,14 @@ var expect = require('chai').expect;
 
 var Payment = require('../../lib/payments/Payment');
 
-describe('Payment', function() {
-    it('should throw', function() {
-        expect(function() {
+describe('Payment', function () {
+    it('should throw', function () {
+        expect(function () {
             new Payment();
         }).to.throw(/not a number/);
     });
 
-    it('should hold the value', function() {
+    it('should hold the value', function () {
         var a = new Payment({
             value: 100,
             comment: 'f00',
@@ -21,13 +21,13 @@ describe('Payment', function() {
         expect(a.comment()).to.equal('f00');
     });
 
-    it('should throw', function() {
+    it('should throw', function () {
         var foo = new Payment({
             value: 100,
             fee: 0
         });
 
-        expect(function() {
+        expect(function () {
             foo.validatePaymentDate();
         }).to.throw(/not implemented/);
     });

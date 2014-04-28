@@ -4,15 +4,15 @@ var moment = require('moment');
 var testUtil = require('../util');
 var PeriodicPayment = require('../../lib/payments/PeriodicPayment');
 
-describe('PeriodicPayment', function() {
-    it('should throw', function() {
-        expect(function() {
+describe('PeriodicPayment', function () {
+    it('should throw', function () {
+        expect(function () {
             new PeriodicPayment();
         }).to.throw(/not a number/);
     });
 
-    it('should throw when end is smaller than start', function() {
-        expect(function() {
+    it('should throw when end is smaller than start', function () {
+        expect(function () {
             new PeriodicPayment({
                 value: 100,
                 start: '01-01-2013',
@@ -22,7 +22,7 @@ describe('PeriodicPayment', function() {
         }).to.throw(/should be greater/);
     });
 
-    it('should hold the values (/w end)', function() {
+    it('should hold the values (/w end)', function () {
         var a = new PeriodicPayment({
             value: 100,
             start: '2014-01-01',
@@ -39,7 +39,7 @@ describe('PeriodicPayment', function() {
         expect(a.validateDuration(moment('2015-01-01'))).to.be.false;
     });
 
-    it('should hold the values (no end)', function() {
+    it('should hold the values (no end)', function () {
         var a = new PeriodicPayment({
             value: 100,
             start: '2014-01-01',

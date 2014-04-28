@@ -3,15 +3,15 @@ var moment = require('moment');
 
 var YearlyPeriodicPayment = require('../../lib/payments/YearlyPeriodicPayment');
 
-describe('YearlyPeriodicPayment', function() {
-    it('should throw', function() {
-        expect(function() {
+describe('YearlyPeriodicPayment', function () {
+    it('should throw', function () {
+        expect(function () {
             new YearlyPeriodicPayment();
         }).to.throw(/not a number/);
     });
 
-    it('should throw', function() {
-        expect(function() {
+    it('should throw', function () {
+        expect(function () {
             new YearlyPeriodicPayment({
                 value: 100,
                 start: '2014-01-01',
@@ -22,36 +22,43 @@ describe('YearlyPeriodicPayment', function() {
         }).to.throw(/not an array: 1/);
     });
 
-    it('should throw', function() {
-        expect(function() {
+    it('should throw', function () {
+        expect(function () {
             new YearlyPeriodicPayment({
                 value: 100,
                 start: '2014-01-01',
                 end: '2014-02-01',
-                dates: [['foo']],
+                dates: [
+                    ['foo']
+                ],
                 fee: 0
             });
         }).to.throw(/not a number: foo/);
     });
 
-    it('should throw', function() {
-        expect(function() {
+    it('should throw', function () {
+        expect(function () {
             new YearlyPeriodicPayment({
                 value: 100,
                 start: '2014-01-01',
                 end: '2014-02-01',
-                dates: [[1]],
+                dates: [
+                    [1]
+                ],
                 fee: 0
             });
         }).to.throw(/not a number: undefined/);
     });
 
-    it('should hold the values (/w end)', function() {
+    it('should hold the values (/w end)', function () {
         var a = new YearlyPeriodicPayment({
             value: 100,
             start: '2010-01-01',
             end: '2012-12-31',
-            dates: [[1, 6], [3, 11]],
+            dates: [
+                [1, 6],
+                [3, 11]
+            ],
             fee: 0
         });
 

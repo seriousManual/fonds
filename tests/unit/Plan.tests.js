@@ -6,69 +6,75 @@ var MonthlyPeriodicPayment = require('../../lib/payments/MonthlyPeriodicPayment'
 var YearlyPeriodicPayment = require('../../lib/payments/YearlyPeriodicPayment');
 var OneTimePayment = require('../../lib/payments/OneTimePayment');
 
-describe('Plan', function() {
-    it('should throw', function() {
-        expect(function() {
+describe('Plan', function () {
+    it('should throw', function () {
+        expect(function () {
             new Plan();
         }).to.throw(/undefined value not allowed/);
 
-        expect(function() {
+        expect(function () {
             new Plan({});
         }).to.throw(/undefined value not allowed/);
 
-        expect(function() {
+        expect(function () {
             new Plan({
                 start: '2014-01-01'
             });
         }).to.throw(/not an array: undefined/);
 
-        expect(function() {
+        expect(function () {
             new Plan({
                 start: '2014-01-01',
                 payments: []
             });
         }).to.throw(/empty array not allowed/);
 
-        expect(function() {
+        expect(function () {
             new Plan({
                 start: '2014-01-01',
                 end: '2010-01-01',
-                payments: [{
-                    type: 'monthly',
-                    start: '2014-01-01',
-                    dates:[1, 15],
-                    value: 100,
-                    fee: 0
-                }]
+                payments: [
+                    {
+                        type: 'monthly',
+                        start: '2014-01-01',
+                        dates: [1, 15],
+                        value: 100,
+                        fee: 0
+                    }
+                ]
             });
         }).to.throw(/2010-01-01 should be greater\/equals 2014-01-01/);
 
-        expect(function() {
+        expect(function () {
             new Plan({
                 start: '2014-01-01',
                 end: '2010-01-01',
-                payments: [{
-                    type: 'foo'
-                }]
+                payments: [
+                    {
+                        type: 'foo'
+                    }
+                ]
             });
         }).to.throw(/could not identify payment of type: foo/);
     });
 
-    it('should create payments', function() {
+    it('should create payments', function () {
         var a = new Plan({
             start: '2014-01-01',
             payments: [
                 {
                     type: 'monthly',
                     start: '2014-01-01',
-                    dates:[1, 15],
+                    dates: [1, 15],
                     value: 10,
                     fee: 0
                 },
                 {
                     type: 'yearly',
                     start: '2014-01-01',
-                    dates:[[1,1]],
+                    dates: [
+                        [1, 1]
+                    ],
                     value: 100,
                     fee: 0
                 },

@@ -11,12 +11,12 @@ var configFile = args._[0];
 
 var plan;
 try {
-    if(!configFile) throw new Error('config file missing');
+    if (!configFile) throw new Error('config file missing');
 
     var data = loadData(configFile);
 
     plan = new Plan(data);
-} catch(error) {
+} catch (error) {
     console.log('initialization: ' + error.message);
     process.exit(1);
 }
@@ -25,10 +25,10 @@ var currentValue = args.currentValue || null;
 
 var blankStyle = {
     chars: {
-        'top': '-' , 'top-mid': '-' , 'top-left': '+' , 'top-right': '+',
-        'bottom': '-' , 'bottom-mid': '+' , 'bottom-left': '+' , 'bottom-right': '+',
-        'left': '|' , 'left-mid': '+' , 'mid': '-' , 'mid-mid': '+',
-        'right': '|' , 'right-mid': '+' , 'middle': '|'
+        'top': '-', 'top-mid': '-', 'top-left': '+', 'top-right': '+',
+        'bottom': '-', 'bottom-mid': '+', 'bottom-left': '+', 'bottom-right': '+',
+        'left': '|', 'left-mid': '+', 'mid': '-', 'mid-mid': '+',
+        'right': '|', 'right-mid': '+', 'middle': '|'
     },
     style: {
         head: [],
@@ -37,13 +37,13 @@ var blankStyle = {
 };
 
 new Summary(plan)
-.createSummary(function(error, summary) {
-    printDetailTable(summary, args.blank ? blankStyle : null);
+    .createSummary(function (error, summary) {
+        printDetailTable(summary, args.blank ? blankStyle : null);
 
-    if (currentValue) {
-        printSummary(summary, currentValue);
-    }
-});
+        if (currentValue) {
+            printSummary(summary, currentValue);
+        }
+    });
 
 function printDetailTable(summary, style) {
     var options = {
@@ -59,7 +59,7 @@ function printDetailTable(summary, style) {
 
     var table = new Table(options);
 
-    summary.payments.forEach(function(payment) {
+    summary.payments.forEach(function (payment) {
         var row = {};
         row[payment.date] = [
             payment.comment,
@@ -79,10 +79,10 @@ function printDetailTable(summary, style) {
 function printSummary(summary, currentValue) {
     var optionsSummary = {
         chars: {
-            'top': '' , 'top-mid': '' , 'top-left': '' , 'top-right': '',
-            'bottom': '' , 'bottom-mid': '' , 'bottom-left': '' , 'bottom-right': '',
-            'left': '' , 'left-mid': '' , 'mid': '' , 'mid-mid': '',
-            'right': '' , 'right-mid': '' , 'middle': ''
+            'top': '', 'top-mid': '', 'top-left': '', 'top-right': '',
+            'bottom': '', 'bottom-mid': '', 'bottom-left': '', 'bottom-right': '',
+            'left': '', 'left-mid': '', 'mid': '', 'mid-mid': '',
+            'right': '', 'right-mid': '', 'middle': ''
         },
         style: {
             head: [],
@@ -108,7 +108,7 @@ function printSummary(summary, currentValue) {
 
 function loadData(inputPath) {
     var configFilePath;
-    if(fs.existsSync(path.join(process.cwd(), inputPath))) {
+    if (fs.existsSync(path.join(process.cwd(), inputPath))) {
         configFilePath = path.join(process.cwd(), inputPath);
     } else if (fs.existsSync(inputPath)) {
         configFilePath = inputPath;

@@ -6,7 +6,7 @@ module.exports = {
             comment: 'monthly, no end',
             type: 'monthly',
             start: '2014-01-01',
-            dates:[1, 15],
+            dates: [1, 15],
             value: 50,
             fee: 0.01
         },
@@ -24,7 +24,11 @@ module.exports = {
             comment: 'yearly',
             type: 'yearly',
             start: '2014-03-01',
-            dates: [[1,1], [1,6], [1,9]],
+            dates: [
+                [1, 1],
+                [1, 6],
+                [1, 9]
+            ],
             value: 300,
             fee: 0.05
         },

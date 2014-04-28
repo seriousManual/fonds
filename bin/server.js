@@ -13,7 +13,7 @@ if (!plan || !fs.existsSync(plan)) {
     process.exit(1);
 }
 
-http.createServer(function(req, res) {
+http.createServer(function (req, res) {
     if (req.url === '/favicon.ico') {
         res.writeHead(404);
         res.end();
@@ -22,7 +22,7 @@ http.createServer(function(req, res) {
     var params = ['./bin/cli.js', plan, '--blank'];
 
     var query = getQuery(req.url);
-    if(query.currentValue) {
+    if (query.currentValue) {
         params.push('--currentValue', query.currentValue);
     }
 

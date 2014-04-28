@@ -5,9 +5,15 @@ var PlanIterator = require('../../lib/PlanIterator');
 
 function createPlanMock(start, end, payments) {
     return {
-        start: function() {return start},
-        end: function() { return end },
-        payments: function() { return payments }
+        start: function () {
+            return start
+        },
+        end: function () {
+            return end
+        },
+        payments: function () {
+            return payments
+        }
     };
 }
 
@@ -16,7 +22,7 @@ function createPaymentMock(validations) {
 
     return {
         calls: [],
-        validatePaymentDate: function(date) {
+        validatePaymentDate: function (date) {
             this.calls.push(date.format('YYYY-MM-DD'))
 
             return validations[index++];
@@ -24,8 +30,8 @@ function createPaymentMock(validations) {
     };
 }
 
-describe('planIterator', function() {
-    it('should itarate from start to end', function(done) {
+describe('planIterator', function () {
+    it('should itarate from start to end', function (done) {
         var a = new PlanIterator();
         var paymentMock = createPaymentMock([false, false, true, false, false]);
         var planMock = createPlanMock(
@@ -37,12 +43,12 @@ describe('planIterator', function() {
         var payments = [];
         var dates = [];
 
-        a.on('payment', function(date, payment) {
+        a.on('payment', function (date, payment) {
             payments.push(payment);
             dates.push(date.format('YYYY-MM-DD'));
         });
 
-        a.on('iterationFinished', function() {
+        a.on('iterationFinished', function () {
             expect(payments).to.deep.equal([paymentMock]);
             expect(dates).to.deep.equal(['2014-01-03']);
 
@@ -60,13 +66,13 @@ describe('planIterator', function() {
 
     });
 
-    it('should itarate until now', function(done) {
+    it('should itarate until now', function (done) {
         var now = moment();
         var start = moment().subtract(3, 'days');
         var expected = [];
 
         var current = start.clone();
-        while(now.isAfter(current, 'days')) {
+        while (now.isAfter(current, 'days')) {
             expected.push(current.format('YYYY-MM-DD'));
 
             current.add(1, 'day');
@@ -83,12 +89,12 @@ describe('planIterator', function() {
         var payments = [];
         var dates = [];
 
-        a.on('payment', function(date, payment) {
+        a.on('payment', function (date, payment) {
             payments.push(payment);
             dates.push(date.format('YYYY-MM-DD'));
         });
 
-        a.on('iterationFinished', function() {
+        a.on('iterationFinished', function () {
             expect(payments).to.deep.equal([paymentMock]);
             expect(dates).to.deep.equal([start.format('YYYY-MM-DD')]);
 
