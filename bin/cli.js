@@ -14,6 +14,8 @@ if (!configFile) {
     process.exit(1);
 }
 
+var currentValue = args.currentValue || null;
+
 var styles = {
     blank: {
         chars: {
@@ -73,8 +75,37 @@ new Summary(plan)
     });
 
     table.push([]);
-    table.push({'sum': ['', summary.invested, summary.fee]});
-    table.push({'invested': ['', summary.invested - summary.fee, '' ]});
+    table.push({'sums': ['', summary.invested, summary.fee]});
 
     console.log(table.toString());
+
+    if (currentValue) {
+        var optionsSummary = {
+            chars: {
+                'top': '' , 'top-mid': '' , 'top-left': '' , 'top-right': '',
+                'bottom': '' , 'bottom-mid': '' , 'bottom-left': '' , 'bottom-right': '',
+                'left': '' , 'left-mid': '' , 'mid': '' , 'mid-mid': '',
+                'right': '' , 'right-mid': '' , 'middle': ''
+            },
+            style: {
+                head: [],
+                border: []
+            }
+        };
+        var table2 = new Table(optionsSummary);
+
+        table2.push(
+            { paid: summary.invested },
+            { 'total fee': summary.fee },
+            { '--------------': '------------'},
+            { 'invested': summary.invested - summary.fee },
+            { '': '' },
+            { 'current value:': currentValue },
+            { '% of paid': -1 * (1 - currentValue / summary.invested) },
+            { '% of invested': -1 * (1 - currentValue / (summary.invested - summary.fee)) }
+
+        );
+
+        console.log(table2.toString());
+    }
 });
