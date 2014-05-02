@@ -56,7 +56,8 @@ describe('planIterator', function () {
                 '2014-01-01',
                 '2014-01-02',
                 '2014-01-03',
-                '2014-01-04'
+                '2014-01-04',
+                '2014-01-05'
             ]);
 
             done()
@@ -72,7 +73,7 @@ describe('planIterator', function () {
         var expected = [];
 
         var current = start.clone();
-        while (now.isAfter(current, 'days')) {
+        while (now.isAfter(current, 'days') || now.isSame(current, 'days')) {
             expected.push(current.format('YYYY-MM-DD'));
 
             current.add(1, 'day');
