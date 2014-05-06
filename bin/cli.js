@@ -93,14 +93,15 @@ function printSummary(summary, currentValue) {
     var table2 = new Table(optionsSummary);
 
     table2.push(
-        { paid: summary.invested },
-        { 'total fee': summary.fee },
+        { paid: beautify(summary.paid) },
+        { 'total fee': beautify(summary.fee) },
         { '--------------': '------------'},
-        { 'invested': summary.invested - summary.fee },
+        { 'invested': beautify(summary.invested) },
         { '': '' },
-        { 'current value:': currentValue },
-        { '% of paid': beautify(percChange(currentValue, summary.invested)) + '%' },
-        { '% of invested': beautify(percChange(currentValue, summary.invested - summary.fee)) + '%'}
+        { 'current value:': beautify(currentValue) },
+        { 'actual yield:': beautify(currentValue - summary.invested) },
+        { '% of paid:': beautify(percChange(currentValue, summary.paid)) + '%' },
+        { '% of invested:': beautify(percChange(currentValue, summary.invested)) + '%'}
     );
 
     console.log(table2.toString());
