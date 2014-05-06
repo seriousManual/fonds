@@ -13,9 +13,7 @@ var plan;
 try {
     if (!configFile) throw new Error('config file missing');
 
-    var data = loadData(configFile);
-
-    plan = new Plan(data);
+    plan = new Plan(loadData(configFile));
 } catch (error) {
     console.log('initialization: ' + error.message);
     process.exit(1);
