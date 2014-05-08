@@ -1,6 +1,6 @@
 {
   "name": "fonds",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "takes a savings plan an calculates the total investment",
   "main": "index.js",
   "scripts": {
