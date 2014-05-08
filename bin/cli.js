@@ -69,7 +69,7 @@ function printDetailTable(summary, style) {
     });
 
     table.push([]);
-    table.push({'sums': ['', summary.invested, summary.fee]});
+    table.push({'sums': ['', summary.paid, summary.fee]});
 
     console.log(table.toString());
 }
